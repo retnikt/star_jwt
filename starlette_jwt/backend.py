@@ -44,28 +44,28 @@ from starlette.responses import Response
 
 class JWTBackend(AuthenticationBackend):
     def __init__(
-            self,
-            /,
-            *,
-            encode_key: str,
-            decode_key: Optional[str] = None,
-            json_encoder: Optional[Type] = None,
-            anonymous_scopes: Sequence[str] = (),
-            default_algorithm: str = "HS256",
-            algorithms: Optional[Set[str]] = frozenset(),
-            options: Dict = None,
-            headers: Optional[Mapping] = None,
-            issuer: str = None,
-            audience: str = None,
-            add_iat: bool = True,
-            add_nbf: bool = True,
-            max_age: Optional[int] = None,
-            cookie_name: str = "auth",
-            path: str = "/",
-            secure: bool = False,
-            http_only: bool = True,
-            domain: Optional[str] = None,
-            **kwargs: Any,
+        self,
+        /,
+        *,
+        encode_key: str,
+        decode_key: Optional[str] = None,
+        json_encoder: Optional[Type] = None,
+        anonymous_scopes: Sequence[str] = (),
+        default_algorithm: str = "HS256",
+        algorithms: Optional[Set[str]] = frozenset(),
+        options: Dict = None,
+        headers: Optional[Mapping] = None,
+        issuer: str = None,
+        audience: str = None,
+        add_iat: bool = True,
+        add_nbf: bool = True,
+        max_age: Optional[int] = None,
+        cookie_name: str = "auth",
+        path: str = "/",
+        secure: bool = False,
+        http_only: bool = True,
+        domain: Optional[str] = None,
+        **kwargs: Any,
     ):
         """
         JSON Web Token authenticator backend for Starlette's authentication system.
@@ -131,9 +131,7 @@ class JWTBackend(AuthenticationBackend):
         """
         return AuthCredentials([]), SimpleUser(sub)
 
-    async def authenticate(
-            self, request: Request
-    ) -> Tuple[AuthCredentials, BaseUser]:
+    async def authenticate(self, request: Request) -> Tuple[AuthCredentials, BaseUser]:
         """
         gets the user for the request
         """
@@ -156,7 +154,7 @@ class JWTBackend(AuthenticationBackend):
     response = TypeVar("response", bound=Response)
 
     def set_login_cookie(
-            self, response: response, /, sub: str, **data: Any
+        self, response: response, /, sub: str, **data: Any
     ) -> response:
         """
         sets a login cookie on a given Response
@@ -211,7 +209,5 @@ class JWTBackend(AuthenticationBackend):
         :param response: response on which to delete the cookie
         :return: the response, useful for chaining
         """
-        response.delete_cookie(
-            key=self.cookie_name, path=self.path, domain=self.domain
-        )
+        response.delete_cookie(key=self.cookie_name, path=self.path, domain=self.domain)
         return response
