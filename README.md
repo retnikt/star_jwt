@@ -1,4 +1,4 @@
-# Starlette JWT
+# StarJWT
 Basic [JWT](https://jwt.io/) authentication integration for [Starlette](https://starlette.io/).
 All it does is validate and sign JWTs and set their contents on the request's
 `auth` and `user` attributes. See the [Starlette documentation](https://www.starlette.io/authentication/)
