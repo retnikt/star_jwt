@@ -15,7 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-
+import abc
 import time
 from typing import (
     Tuple,
@@ -36,13 +36,12 @@ from starlette.authentication import (
     AuthCredentials,
     AuthenticationError,
     UnauthenticatedUser,
-    SimpleUser,
 )
 from starlette.requests import Request
 from starlette.responses import Response
 
 
-class JWTBackend(AuthenticationBackend):
+class JWTBackend(abc.ABC, AuthenticationBackend):
     def __init__(
         self,
         /,
@@ -122,14 +121,15 @@ class JWTBackend(AuthenticationBackend):
         self.headers = headers
         self.kwargs = kwargs
 
-    async def get_user(self, sub: str) -> Tuple[AuthCredentials, BaseUser]:
+    @abc.abstractmethod
+    async def get_user(self, **kwargs) -> Tuple[AuthCredentials, BaseUser]:
         """
         override this method to get your user from the database, for example.
         By default this returns an empty user with only the user
-        :param sub: the subject of the JWT
+        :param kwargs: content of the JWT
         :return: tuple of (credentials object, user object)
         """
-        return AuthCredentials([]), SimpleUser(sub)
+        raise NotImplementedError()
 
     async def authenticate(self, request: Request) -> Tuple[AuthCredentials, BaseUser]:
         """
@@ -150,13 +150,11 @@ class JWTBackend(AuthenticationBackend):
         except jwt.PyJWTError as e:
             raise AuthenticationError(*e.args) from None
 
-        return await self.get_user(value["sub"])
+        return await self.get_user(**value)
 
     response = TypeVar("response", bound=Response)
 
-    def set_login_cookie(
-        self, response: response, /, sub: str, **data: Any
-    ) -> response:
+    def set_login_cookie(self, response: response, /, sub: str, **data: Any) -> response:
         """
         sets a login cookie on a given Response
         :param response: response to set the cookie on
