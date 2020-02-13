@@ -145,7 +145,8 @@ class JWTBackend(AuthenticationBackend):
                 key=self.decode_key,
                 verify=True,
                 algorithms=self.algorithms,
-                options=self.options ** self.kwargs,
+                options=self.options,
+                **self.kwargs,
             )
         except jwt.PyJWTError as e:
             raise AuthenticationError(*e.args) from None
