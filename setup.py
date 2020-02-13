@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="star_jwt",
-    version="0.1.1",
+    version="0.2.0",
     author="retnikt",
     author_email="_@retnikt.uk",
     description="JSON Web Token authenticator backend for Starlette's authentication system.",
