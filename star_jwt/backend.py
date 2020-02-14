@@ -154,16 +154,15 @@ class JWTBackend(abc.ABC, AuthenticationBackend):
 
     response = TypeVar("response", bound=Response)
 
-    def set_login_cookie(self, response: response, /, sub: str, **data: Any) -> response:
+    def set_login_cookie(self, response: response, /, **data: Any) -> response:
         """
         sets a login cookie on a given Response
         :param response: response to set the cookie on
-        :param sub: subject of the token, normally a user-id or similar
-        :param data: extra token payload data
+        :param data: token payload data, overrides built-in fields (iat, nbf, iss, aud, exp, etc...)
         :return: the response, useful for chaining
         """
 
-        payload = dict(sub=sub)
+        payload = {}
 
         now = time.time()
         if self.add_iat:
