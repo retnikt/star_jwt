@@ -135,7 +135,7 @@ class JWTBackend(abc.ABC, AuthenticationBackend):
         """
         gets the user for the request
         """
-        if cookie := request.cookies.get(self.cookie_name) is None:
+        if (cookie := request.cookies.get(self.cookie_name)) is None:
             return AuthCredentials(self.anonymous_scopes), UnauthenticatedUser()
 
         try:
