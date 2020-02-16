@@ -185,7 +185,7 @@ class JWTBackend(abc.ABC, AuthenticationBackend):
             algorithm=self.default_algorithm,
             headers=self.headers,
             json_encoder=self.json_encoder,
-        )
+        ).decode()
 
         response.set_cookie(
             self.cookie_name,
