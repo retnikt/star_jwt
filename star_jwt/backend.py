@@ -145,6 +145,8 @@ class JWTBackend(abc.ABC, AuthenticationBackend):
                 verify=True,
                 algorithms=self.algorithms,
                 options=self.options,
+                issuer=self.issuer,
+                audience=self.audience,
                 **self.kwargs,
             )
         except jwt.PyJWTError as e:
