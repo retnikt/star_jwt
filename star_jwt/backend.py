@@ -122,10 +122,11 @@ class JWTBackend(abc.ABC, AuthenticationBackend):
         self.kwargs = kwargs
 
     @abc.abstractmethod
-    async def get_user(self, **kwargs) -> Tuple[AuthCredentials, BaseUser]:
+    async def get_user(self, request: Request, /, **kwargs) -> Tuple[AuthCredentials, BaseUser]:
         """
         override this method to get your user from the database, for example.
         By default this returns an empty user with only the user
+        :param request: the Starlette request
         :param kwargs: content of the JWT
         :return: tuple of (credentials object, user object)
         """
@@ -152,7 +153,7 @@ class JWTBackend(abc.ABC, AuthenticationBackend):
         except jwt.PyJWTError as e:
             raise AuthenticationError(*e.args) from None
 
-        return await self.get_user(**value)
+        return await self.get_user(request, **value)
 
     response = TypeVar("response", bound=Response)
 
