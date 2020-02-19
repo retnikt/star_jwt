@@ -16,6 +16,13 @@ the JWT, and the scopes are empty. To change this behaviour, you can subclass
 `JWTBackend` and override the `get_user` method to, for example, get the user
 in the database.
 
+Full documentation is in the docstrings (use `help` builtin):
+
+```python
+>>> import starlette_jwt
+>>> help(starlette_jwt)
+```
+
 ### Example
 
 ```python
