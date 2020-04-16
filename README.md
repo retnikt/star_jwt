@@ -19,8 +19,8 @@ in the database.
 Full documentation is in the docstrings (use `help` builtin):
 
 ```python
->>> import starlette_jwt
->>> help(starlette_jwt)
+>>> import star_jwt
+>>> help(star_jwt)
 ```
 
 ### Example
@@ -29,7 +29,7 @@ Full documentation is in the docstrings (use `help` builtin):
 from starlette.applications import Starlette
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.responses import PlainTextResponse
-from starlette_jwt import JWTBackend
+from star_jwt import JWTBackend
 
 app = Starlette()
 backend = JWTBackend(...)
@@ -48,9 +48,9 @@ async def logout():
 ```
 
 ## Requirements
-Starlette JWT requires [Starlette](https://starlette.io/), [PyJWT](https://pyjwt.readthedocs.io)
+StarJWT requires [Starlette](https://starlette.io/), [PyJWT](https://pyjwt.readthedocs.io)
 and Python 3.8 or higher ([why?](https://because-you-should-always-use-the-latest-version.invalid)). 
 
 ## License
-Starlette JWT is licensed under the [AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html).
+StarJWT is licensed under the [AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html).
 
